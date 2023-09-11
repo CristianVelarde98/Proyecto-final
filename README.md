@@ -1,3 +1,2 @@
-# Proyecto-final
-
--firma cristian check 
+# PROYECTO COMPAS
+## Trabajando en el scaffolding
