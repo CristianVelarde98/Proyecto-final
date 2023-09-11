@@ -1,14 +1,2 @@
-# Proyecto-final
-
--firma cristian
-
--firmado por javier huebra el gordo back -chekeado
-
--bokita pasión
-
-- otro commit de javi a ver que pasa
-
-- que onda chicos
-
-
-hola pusheo a desarrollo
+# PROYECTO COMPAS
+## Trabajando en el scaffolding
