@@ -1,3 +1,4 @@
-# Proyecto-final
+# PROYECTO COMPAS
+## Trabajando en el scaffolding
 
--firma cristian check 
+firma Gimena.
