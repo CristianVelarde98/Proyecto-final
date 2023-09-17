@@ -4,6 +4,8 @@ import com.proyecto.coompitas.models.Producto;
 import com.proyecto.coompitas.repositories.ProductoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     private final ProductoRepository productRepository;
@@ -22,4 +24,15 @@ public class ProductService {
     public Producto findProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
+
+    //Traer todos los productos
+    public List<Producto> allProducts() {
+        return productRepository.findAll();
+    }
+
+    //Eliminar producto por id
+    public void eliminarProducto(Long id){
+        productRepository.deleteById(id);
+    }
+
 }

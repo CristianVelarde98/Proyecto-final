@@ -9,12 +9,15 @@ import com.proyecto.coompitas.services.PedidoProductoService;
 import com.proyecto.coompitas.services.PedidoService;
 import com.proyecto.coompitas.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -77,4 +80,48 @@ public class PagosController {
         }
 
     }
+
+    //POST PARA PAGAR EL PEDIDO
+    @PostMapping("/pagar/pedido/{idPedido}")
+    public String pagarPedido(@PathVariable("idPedido") Long idPedido,
+                              HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado != null) {
+            Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
+            if(pedido.getEstadoDelPedido()== 2){
+                pedido.setEstadoDelPedido(1);
+            }else{
+                pedido.setEstadoDelPedido(2);
+            }
+
+            pedidoService.crearPedido(pedido);
+            return "redirect:/camara/"+pedido.getCamara().getId();
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
+    }
+
+    //POST PARA ENVIAR LA CÁMARA DE PEDIDOS (ULTIMO ESTADO)
+    @PostMapping("/camara/{idCamara}/enviar")
+    public String enviarCamara(@PathVariable("idCamara") Long idCamara,
+                               @RequestParam("fechaDeLlegada") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDeLlegada,//Esta es la forma de aplicarle el formato
+                               HttpSession session){
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado != null) {
+            Camara camara = camaraService.findCamara(idCamara);
+            camara.setEstadoDeLaCamara(6);
+            camara.setFechaDeLlegada(fechaDeLlegada);
+            camaraService.createCamara(camara);
+            return "redirect:/perfil";
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
+    }
+
+    //POST PARA MARCAR QUE SE RECIBIÓ LA CÁMARA CORRECTAMENTE EN LA DIRECCIÓN ESTIPULADA
+    //@PostMapping("/camara/{idCamara}/recibida") continuará...
+
+    //POST PARA MARCAR QUE CADA PARTICIPANTE RETIRÓ EL PEDIDO DE LA UBICACIÓN DESIGNADA
 }

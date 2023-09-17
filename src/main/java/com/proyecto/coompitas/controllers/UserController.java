@@ -10,9 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -33,7 +31,8 @@ public class UserController {
         return "ciclo_registro_login/registrationPage";
     }
 
-    @PostMapping("/user/register")
+    //Estos controladores estan duplicados porque no se me ocurrio una forma de hacerlo con un solo controlador por el tema de los errores de validacion
+    @PostMapping("/user/register/1")
     public String registerUser(@Valid @ModelAttribute("user") User user,
                                BindingResult result,
                                Model viewModel){
@@ -43,6 +42,8 @@ public class UserController {
             return "ciclo_registro_login/registrationPage";
         }else{
             try{
+                user.setUrlFotoPerfil("https://cdn.create.vista.com/api/media/small/259400730/stock-photo-illustration-businessman-icon-avatar-flat-design-259400730.jpg");
+                user.setRolUsuario(1);
                 userService.registerUser(user);
                 //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
             }catch(DataIntegrityViolationException e){
@@ -51,6 +52,29 @@ public class UserController {
                 return "ciclo_registro_login/registrationPage";
             }
 
+            return "redirect:/login";
+        }
+    }
+    //Estos controladores estan duplicados porque no se me ocurrio una forma de hacerlo con un solo controlador por el tema de los errores de validacion
+    @PostMapping("/user/register/2")
+    public String registerUser2(@Valid @ModelAttribute("user") User user,
+                               BindingResult result,
+                               Model viewModel){
+        userValidator.validate(user, result);
+        if(result.hasErrors()){
+            System.out.println("Hay error-");
+            return "ciclo_registro_login/registrationPage";
+        }else{
+            try{
+                user.setUrlFotoPerfil("https://cdn.create.vista.com/api/media/small/259400730/stock-photo-illustration-businessman-icon-avatar-flat-design-259400730.jpg");
+                user.setRolUsuario(2);
+                userService.registerUser(user);
+                //session.setAttribute("idLogueado", user.getId()); Esto para loguear directamente y que te mande a completar la direccion al perfil, un registro en dos pasos para mejorar UX
+            }catch(DataIntegrityViolationException e){
+                System.out.println("Error de integridad de datos - Email ya existe");
+                viewModel.addAttribute("emailDuplicateError", "El correo electrónico no esta disponible");
+                return "ciclo_registro_login/registrationPage";
+            }
 
             return "redirect:/login";
         }
@@ -89,10 +113,29 @@ public class UserController {
         }
     }
 
+    //LOGOUT (Cerrar sesion)
     @GetMapping("/logout")
     public String logOut(HttpSession session){
         session.invalidate();
         return "redirect:/login";
+    }
+
+    //POST PARA CAMBIAR LA FOTO DE PERFIL
+    @PostMapping("/user/perfil/foto")
+    public String cambiarFotoPerfil(@RequestParam("url") String url,
+                                    HttpSession session){
+
+        Long idLogueado = (Long) session.getAttribute("idLogueado");
+        if (idLogueado != null) {
+            User userLogueado = userService.findUserById(idLogueado);
+            userLogueado.setUrlFotoPerfil(url);
+            userLogueado.setPasswordConfirmation(userLogueado.getPassword());//Lo importante es poner algo, no se guarda en la base de datos
+            userService.updateUser(userLogueado);
+            return "redirect:/perfil";
+        }else{
+            System.out.println("No hay usuario logueado");
+            return "redirect:/login";
+        }
     }
 
 }
