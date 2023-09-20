@@ -21,4 +21,13 @@ public class DireccionService {
     public Direccion findDireccionById(Long id){
         return direccionRepository.findById(id).orElse(null);
     }
+
+    //Eliminar direccion
+    public void deleteDireccion(Long id){//Esto no elimina la dirección pero le quita elusuario que la tiene asignada asi no se rompe la relación y la camara existe igual
+        Direccion direccion = direccionRepository.findById(id).orElse(null);
+        if(direccion != null){
+            direccion.setUsuario(null);
+            direccionRepository.save(direccion);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.proyecto.coompitas.controllers;
 
+import com.proyecto.coompitas.classes.ProdCant;
 import com.proyecto.coompitas.models.*;
 import com.proyecto.coompitas.services.CamaraService;
 import com.proyecto.coompitas.services.PedidoProductoService;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class CamaraControllerView {
@@ -48,18 +47,60 @@ public class CamaraControllerView {
             List<Pedido> pedidosDeLaCamara = camaraActual.getPedidos();//Guardo los pedidos que tiene la camara
             List<PedidoProducto> registrosConProductoYCantidad = new ArrayList<>();//Creo una lista de PedidoProducto, que es la tabla intermedia que se genera cuando se guarda un producto en un pedido, pero le agregamos a mano la cantidad y la necesito tambien
             boolean estanTodosLosPedidosListos = true;
+            boolean estanTodosLosPedidosPagados = true;
+
+            Map<Producto, Integer> mapaProdCant = new HashMap<>();//HashMap para guardar la cantidad total de cada producto en la cámara
 
             for(Pedido pedido : pedidosDeLaCamara){//Busco los registros de relacion entre pedido y producto para cada pedido de la camara
                 registrosConProductoYCantidad.addAll(pedidoProductoService.buscarPorPedido(pedido.getId()));//Agrego a la lista los registros de la tabla intermedia que se generan cuando se guarda un producto en un pedido
                 if(pedido.getEstadoDelPedido() == 0){
                     estanTodosLosPedidosListos = false;
+                    estanTodosLosPedidosPagados = false;
                 }
+                if(pedido.getEstadoDelPedido() == 1){
+                    estanTodosLosPedidosPagados = false;
+                }
+
+
+                for (PedidoProducto pedidoProducto : pedidoProductoService.buscarPorPedido(pedido.getId())) {
+                    for (Producto producto : pedido.getProductos()) {
+                        if (pedidoProducto.getProducto() == producto) {
+                            int cantidad = pedidoProducto.getCantidad();
+                            if (mapaProdCant.containsKey(producto)) {
+                                // El producto ya existe en el mapa, actualiza la cantidad
+                                int cantidadExistente = mapaProdCant.get(producto);
+                                mapaProdCant.put(producto, cantidadExistente + cantidad);
+                            } else {
+                                // El producto no existe en el mapa, agrégalo
+                                mapaProdCant.put(producto, cantidad);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+            List<ProdCant> cantidadesProductoList = new ArrayList<>();//Lista para enviar al modelo con los productos y sus cantidades
+
+            for (Map.Entry<Producto, Integer> entry : mapaProdCant.entrySet()) {
+                Producto producto = entry.getKey();
+                Integer cantidad = entry.getValue();
+                ProdCant prodCant = new ProdCant(cantidad, producto);
+                cantidadesProductoList.add(prodCant);
+            }
+
+            if(estanTodosLosPedidosPagados && camaraActual.getEstadoDeLaCamara() == 4){
+                camaraActual.setEstadoDeLaCamara(5);
+                camaraService.createCamara(camaraActual);
             }
 
 
             viewModel.addAttribute("registrosProductoYCantidad", registrosConProductoYCantidad);//Inserto la lista de registros de la tabla intermedia en el modelo para que se pueda usar en la página camaraPage
             viewModel.addAttribute("usuarioLogueado", userService.findUserById(idLogueado));//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             viewModel.addAttribute("pedidosListos", estanTodosLosPedidosListos);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
+            viewModel.addAttribute("pedidosPagados", estanTodosLosPedidosPagados);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
+            viewModel.addAttribute("listTotalCantProd", cantidadesProductoList);//Inserto el usuario logueado en el modelo para que se pueda usar en la página camaraPage")
             return "paginas_comprador/camaraPage";
         }else{
             System.out.println("No hay usuario logueado");
@@ -77,6 +118,12 @@ public class CamaraControllerView {
             Camara camaraActual = camaraService.findCamara(idCamara);
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             User userProveedor = camaraActual.getProveedor();//Extraigo el usuario que provee la camara
+
+            //Hay que validar que un usuario se pueda unir solo una vez a la camara
+            if(camaraActual.getParticipantes().contains(userLogueado)){
+                System.out.println("El usuario ya esta en la camara");
+                return "redirect:/camara/" + camaraActual.getId();
+            }
 
             if(userLogueado.getEstado() != 1){ //Comprueba el estado del usuario logueado para ver si creamos un pedido vacio en este get o no
                 Pedido pedidoVacio = new Pedido();//Creo un pedido vacio en este GET para que este disponible en el controlador de pedido y actualizarlo
@@ -120,6 +167,8 @@ public class CamaraControllerView {
         if (idLogueado != null) {
             User userLogueado = userService.findUserById(idLogueado);//Busco el usuario logueado que va a abrir la camara
             Camara camaraActual = (Camara) session.getAttribute("camara");//Busco la camara actual que se esta trabajando
+
+
             camaraActual.getParticipantes().add(userLogueado);//Agrego el usuario logueado a la lista de participantes de la camara
 
             Pedido pedidoEnProceso = pedidoService.buscarPeidoSinCamara(userLogueado);//Busco el pedido en proceso del usuario logueado
