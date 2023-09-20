@@ -1,7 +1,4 @@
-# Proyecto-final
+# PROYECTO COMPAS
+## Trabajando en el scaffolding
 
--firma cristian
-
--firmado por javier huebra el gordo back -chekeado
-
--bokita pasión
+firma Gimena.

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Catalogo Proveedor</title>
+</head>
+<style>
+    .contenedor {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .contenedor-principal {
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
+
+<body>
+<h1>Catálogo <span th:text="${userProveedor.nombreEmpresa}"></span></h1>
+<img style="width: 120px;border-radius: 50%" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
+<div class="contenedor-principal">
+    <div class="contenedor" th:each="producto : ${userProveedor.productos}">
+        <img style="width: 130px"  th:src="${producto.imagen}" alt="imagen del producto" src="">
+        <p th:text="${producto.nombre}"></p>
+        <p>Stock: <span th:text="${producto.stock}"></span></p>
+        <p>$ <span th:text="${producto.precio}"></span></p>
+
+        <p th:each="descCant : ${producto.getCantidadesDescuentos()}">Llevando mas de <span
+                th:text="${descCant.cantidad}"></span> tienes un <span th:text="${descCant.descuentoAplicado}"></span>%
+            de descuento</p>
+
+        <form th:action="@{/crear/{idProveedor}/pedido(idProveedor=${userProveedor.id})}" method="POST">
+            <input type="hidden" name="idProducto" th:value="${producto.id}"/>
+
+            <label>
+                Cantidad:
+                <br>
+                <input type="number" id="cantidad" name="cantidad">
+            </label>
+            <br>
+            <input type="submit" value="Agregar al Pedido">
+        </form>
+    </div>
+</div>
+<div th:each="registro : ${carrito}">
+    <p><span th:text="${registro.cantidad}"></span> x <span th:text="${registro.producto.nombre}"></span> = $<span
+            th:text="${registro.precioProductos}"></span> <span th:if="${registro.descuentoVigente > 0}"
+                                                                style="color: red"
+                                                                th:text="'% ' + ${registro.descuentoVigente} + ' OFF'"></span>
+
+    </p>
+</div>
+<p>Total: $<span th:text="${pedidoEnProceso.precioTotal}"></span></p>
+<div th:if="${anexandoComprador}">
+    <p>ANEXANDO COMPRADOR</p>
+    <form th:action="@{/unirse/agregarUsuario/{idCamara}(idCamara=${camara.id})}" method="POST"
+          th:object="${camara}">
+
+        <input type="submit" value="Unirse a la camara">
+    </form>
+</div>
+<div th:unless="${anexandoComprador}">
+    <p>CREANDO CAMARA</p>
+    <form th:action="@{/camara/proveedores/crear/{idProveedor}(idProveedor=${userProveedor.id})}" method="POST"
+          th:object="${camara}">
+
+        <label>
+            Fecha de expiración:
+            <input type="date" th:field="*{fechaDeExpiracion}">
+        </label>
+        <label>
+            Dirección de entrega:
+            <select  id="direccionEnvio" name="direccionId">
+                <option th:each="direccion : ${userLogueado.direcciones}"
+                        th:value="${direccion.id}"
+                        th:text="${direccion.pais}+' - '+${direccion.provincia}+' - '+${direccion.ciudad}+' - Calle '+${direccion.calle}">
+                </option>
+            </select>
+        </label>
+        <br>
+        <input type="submit" value="Crear Cámara">
+    </form>
+
+</div>
+<a th:href="@{/pedido/cancelar/{idPedido}(idPedido=${pedidoEnProceso.id})}">Cancelar</a>
+</body>
+</html>

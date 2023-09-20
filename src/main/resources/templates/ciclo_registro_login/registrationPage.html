@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <!-- Tailwind CDN (NO APTO DEPLOYADO) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <style>
+        body{
+            font-family: 'Raleway', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center w-full h-screen gap-10 bg-[#211C2E] text-white">
+    <!-- Form para compradores -->
+    
+    <div id="form-comprador" class="flex flex-col min-w-[250px] bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px] border border-white backdrop-blur-2xl p-5">
+        <!-- Botones que van cambiando de formulario dependiendo el boton clickeado -->
+        <!-- Por default se veria el formulario de comprador -->
+        <div class="text-center py-1 px-4 md:text-xl rounded-sm mb-4 bg-[#211C2E] p-5 hover:bg-black hover:font-bold">
+            <button id="switch-vendedor">¿Quieres vender?</button>
+        </div>
+        <h2 class="text-center text-xl mb-5">Registrarse como Comprador</h2>
+        <form th:action="@{/user/register/1}" method="POST" th:object="${user}">
+        
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{nombreEmpresa}" placeholder=" Nombre de la Empresa">
+                <label class="text-red-500" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
+                <label class="text-red-500" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{nombreTitular}" placeholder=" Nombre del Titular">
+                <label class="text-red-500" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{email}" placeholder=" Email">
+                <span class="text-red-500" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
+                <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{telefono}" placeholder=" Teléfono">
+                <label class="text-red-500" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="password" th:field="*{password}" placeholder=" Contraseña">
+                <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="password" th:field="*{passwordConfirmation}" placeholder=" Repita la Contraseña">
+                <label class="text-red-500" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
+            </label>
+            <input class="text-center py-1 px-4 md:text-l rounded-sm mb-4 bg-[#211C2E] p-5 hover:bg-black hover:font-bold" type="submit" value="Crear Cuenta">
+        </form>
+        <a href="/login" class="text-[12px] md:text-base">¿Ya tienes cuenta? Inicia Sesión</a>
+    </div>
+
+    <!-- Form para proveedores -->
+    <div id="form-proveedor" class="flex flex-col min-w-[250px] bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px] border border-white backdrop-blur-2xl p-5 hidden">
+        <!-- Botones que van cambiando de formulario dependiendo el boton clickeado -->
+        <!-- Por default se veria el formulario de comprador -->
+        <div class="text-center py-1 px-4 md:text-xl rounded-sm mb-4 bg-[#211C2E] p-5 hover:bg-black hover:font-bold">
+            <button id="switch-comprador">¿Quieres comprar?</button>
+        </div>
+        <h2 class="text-center text-xl mb-5">Registrarse como Proveedor</h2>
+        <form th:action="@{/user/register/2}" method="POST" th:object="${user}">
+    
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{nombreEmpresa}" placeholder=" Nombre de la Empresa">
+                <label class="text-red-500" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{cuitCuil}" placeholder="CUIT/CUIL">
+                <label class="text-red-500" th:if="${#fields.hasErrors('cuitCuil')}" th:errors="*{cuitCuil}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{nombreTitular}" placeholder=" Nombre del Titular">
+                <label class="text-red-500" th:if="${#fields.hasErrors('nombreTitular')}" th:errors="*{nombreTitular}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{email}" placeholder=" Email">
+                <span class="text-red-500" th:if="${emailDuplicateError}" th:text="${emailDuplicateError}"></span>
+                <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="text" th:field="*{telefono}" placeholder=" Teléfono">
+                <label class="text-red-500" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="password" th:field="*{password}" placeholder=" Contraseña">
+                <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            </label>
+            <label class="flex flex-col mb-3">
+                <input class="text-black rounded-full" type="password" th:field="*{passwordConfirmation}" placeholder=" Repita la Contraseña">
+                <label class="text-red-500" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></label>
+            </label>
+            <input class="text-center py-1 px-4 md:text-l rounded-sm mb-4 bg-[#211C2E] p-5 hover:bg-black hover:font-bold" type="submit" value="Crear Cuenta">
+        </form>
+        <a href="/login" class="text-[12px] md:text-base">¿Ya tienes cuenta? Inicia Sesión</a>
+    </div>
+    <script>
+        let comprador = document.getElementById("form-comprador");
+        let proveedor = document.getElementById("form-proveedor");
+        let switchComprador = document.getElementById("switch-comprador");
+        let switchVendedor = document.getElementById("switch-vendedor");
+
+        switchVendedor.addEventListener("click", () => {
+            comprador.style.display = "none";
+            proveedor.style.display = "flex";
+        })
+
+        switchComprador.addEventListener("click", () => {
+            proveedor.style.display = "none";
+            comprador.style.display = "flex";
+        })
+    </script>
+</body>
+</html>
