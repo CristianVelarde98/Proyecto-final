@@ -30,7 +30,7 @@
   </head>
   <body class="w-full h-screen bg-[#211C2E] text-white">
     <!-- Navbar -->
-    <header class="w-full h-40 bg-gradient-to-b from-[#1A1625]">
+    <header class="w-full h-40 bg-gradient-to-b from-[#1A1625] via-[#1A1625]">
       <nav class="flex justify-between items-center mx-10 p-5">
         <img
           class="w-60"
@@ -60,7 +60,7 @@
           src="https://res.cloudinary.com/dqudradf7/image/upload/v1694636884/undraw_shared_goals_re_jvqd_tnhait.svg" alt="imagen_ilustrativa"
         />
       </section>
-      <section class="flex flex-col justify-center items-center text-center mb-[150px] lg:w-full">
+      <section class="pt-10 flex flex-col justify-evenly items-center text-center mb-[150px] lg:w-full">
         <h2 class="text-6xl lg:text-7xl mb-5 md:mb-10">¿Como funcionamos?</h2>
         <video
           class="w-full lg:w-[1500px] mb-5 md:mb-10"
@@ -70,49 +70,95 @@
           preload="auto"
         ></video>
         <p class="text-3xl w-[1000px]">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-          adipisci alias asperiores atque autem cumque cupiditate
+          En Coompitas, ofrecemos la opción de compras al por mayor, lo que significa que puedes adquirir productos en grandes cantidades a precios más económicos en conjunto con otras medianas y pequeñas empresas como la tuya. Simplemente selecciona la cantidad deseada de productos, invita a tus compitas a sumarse y verás automáticamente el descuento aplicado en tu carrito de compras, ¡y en el de todos! Estamos aquí para ayudarte en cada paso del proceso y garantizar que obtengas el mejor valor por tu inversión.
         </p>
       </section>
 
-      <section class="flex flex-col justify-center items-center">
-        <h3 class="text-5xl mb-10">Sobre Nosotros</h3>
+      <section class="pt-10 flex flex-col justify-evenly items-center">
+        <h3 class="text-5xl mb-10">Echa un vistazo</h3>
         <!-- Carrousel -->
-        <div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
+        <div class="w-[350px] flex flex-no-wrap items-center overflow-x-scroll scrolling-touch mb-8">
+          <div class="gap-y-3 w-3/4 h-auto p-10 flex flex-col justify-between items-center md:w-3/4 mx-12 md:pb-4 bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px] border border-white backdrop-blur-2xl">
+            <img class="w-1/2 h-1/2" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695231770/sancor-logo-png-transparent_lnokak.png" alt="Imagen de muestra" />
+            <h2 class="text-3xl">Sancor</h2>
+            <h3 class="text-l">Compitas de Nuñez</h3>
+            <div class="flex justify-evenly no-wrap">
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <p class="text-l">
+              Estado: <span class="font-bold text-green-500">Abierto</span>
             </p>
-            <a href="#" class="text-2xl">Ver más...</a>
-          </div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
+            <p class="text-l">
+              Fecha de Expiración:<br><span class="font-bold text-green-500">01/11/2023</span>
             </p>
-            <a href="#" class="text-2xl">Ver más...</a>
+            <button class="rounded-full bg-gradient-to-b from-[#211C2E] p-5">Unirse</button>
           </div>
-          <div class="flex flex-col justify-center self-center gap-5 p-5 m-5 text-black text-center bg-white w-[350px]">
-            <img src="../static/illustration.png" alt="Imagen de muestra" />
-            <h3 class="text-5xl">Titulo</h3>
-            <p class="text-2xl">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium, adipisci alias asperiores atque autem cumque
-              cupiditate.
+          <div class="gap-y-3 w-3/4 h-auto p-10 flex flex-col justify-between items-center md:w-3/4 mx-12 md:pb-4 bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px] border border-white backdrop-blur-2xl">
+            <img class="w-1/2 h-1/2" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695231771/R_f5yfem.png" alt="Imagen de muestra" />
+            <h2 class="text-3xl">Marolio</h2>
+            <h3 class="text-l">Compitas de Bahia Blanca</h3>
+            <div class="flex justify-evenly no-wrap">
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <p class="text-l">
+              Estado: <span class="font-bold text-green-500">Abierto</span>
             </p>
-            <a href="#" class="text-2xl">Ver más...</a>
+            <p class="text-l">
+              Fecha de Expiración:<br><span class="font-bold text-green-500">01/11/2023</span>
+            </p>
+            <button class="rounded-full bg-gradient-to-b from-[#211C2E] p-5">Unirse</button>
           </div>
-        </div>
+          <div class="gap-y-3 w-3/4 h-auto p-10 flex flex-col justify-between items-center md:w-3/4 mx-12 md:pb-4 bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px] border border-white backdrop-blur-2xl">
+            <img class="w-1/2 h-1/2" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695231765/Molinos_logo_pvdwgh.png" alt="Imagen de muestra" />
+            <h2 class="text-3xl">Molinos</h2>
+            <h3 class="text-l">Compitas de Munro</h3>
+            <div class="flex justify-evenly no-wrap">
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              <div class="rounded-full bg-gradient-to-b from-[#211C2E] p-3">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <p class="text-l">
+              Estado: <span class="font-bold text-green-500">Abierto</span>
+            </p>
+            <p class="text-l">
+              Fecha de Expiración:<br><span class="font-bold text-green-500">01/11/2023</span>
+            </p>
+            <button class="rounded-full bg-gradient-to-b from-[#211C2E] p-5">Unirse</button>
+          </div>
       </section>
     </main>
-    <footer class="flex justify-between items-center bg-black h-[150px] px-5">
+    <footer class="flex justify-between items-center bg-gradient-to-t from-[#1A1625] via-[#1A1625] h-[150px] px-5">
       <ul class="hidden">
         <li>
           <a href=""><img src="" alt="" /></a>
@@ -122,7 +168,7 @@
         </li>
       </ul>
       <div class="flex flex-col items-center justify-center">
-        <img class="w-[70px] h-[50px]" src="./logo_coompitas.png" alt="coompitas_logo" />
+        <img class="w-[70px] h-[70px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695225117/Texto_del_p%C3%A1rrafo_yo20zy.svg" alt="coompitas_logo" />
         <p>© 2023 Coompitas</p>
       </div>
       <ul class="flex gap-5">
