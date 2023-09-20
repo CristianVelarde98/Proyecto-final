@@ -30,7 +30,7 @@
 
             <!-- Input de Email -->
             <label class="flex flex-col mb-5 text-sm">
-                <input class="p-2 rounded-sm text-black" type="text" th:field="*{email}" placeholder="Email">
+                <input class="p-2 rounded-full text-black" type="text" th:field="*{email}" placeholder=" Email">
                 
                 <!-- Validación-->
                 <label class="text-red-500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
@@ -38,13 +38,13 @@
             
             <!-- Input de Contraseña -->
             <label class="flex flex-col mb-4 text-sm">
-                <input class="p-2 rounded-sm text-black" type="password" th:field="*{password}" placeholder="Password">
+                <input class="p-2 rounded-full text-black" type="password" th:field="*{password}" placeholder=" Password">
 
                 <!-- Validación-->
                 <label class="text-red-500" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
             
-            <input class="py-1 px-4 md:text-xl rounded-sm mb-4 bg-[#211C2E] p-5" type="submit" value="Login">
+            <input class="py-1 px-4 md:text-xl rounded-sm mb-4 bg-[#211C2E] p-5 hover:bg-black hover:font-bold" type="submit" value="Login">
         </form>
         <a href="/registration" class="text-[12px] md:text-base">¿No tienes cuenta? Regístrate</a>
     </div>
