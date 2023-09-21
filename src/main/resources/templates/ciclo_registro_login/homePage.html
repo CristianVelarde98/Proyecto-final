@@ -6,31 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    <!-- Tailwind CDN (NO APTO DEPLOYADO) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
-    <script src="https://kit.fontawesome.com/5264c4476b.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <style>
-        body{
-            font-family: 'Raleway', sans-serif;
-        }
-    </style>
 </head>
 
-<body class="flex flex-col justify-between min-h-[100vh] bg-[#57375D] text-white" id="body-id">
-<header class="w-full h-[80px] bg-gradient-to-b from-[#1A1625]">
+<body class="flex flex-col justify-between min-h-[100vh]" id="body-id">
+<header class="w-full h-[80px] bg-black">
     <nav class="flex justify-between max-w-[1200px] items-center p-3 mx-auto">
-            <img class="w-[60px] h-[60px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695225117/Texto_del_p%C3%A1rrafo_yo20zy.svg" alt="Logo Coompitas">
+        <!--Este div lo puse para probar, sacalo si queres para toquetear porque no
+            estaba centrado el logo a la par que la foto de perfil-->
+        <div class="flex justify-center items-center h-full">
+            <a href="/home">
+                <img class="w-[60px] h-[40px]" src="./logo_coompitas.png" alt="Logo Coompitas">
+            </a>
+        </div>
         <div class="inline-block relative">
             <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md bg-gradient-to-b from-slate-600 via-stone-500 to-stone-500 rounded-[10px]">
-                <h2>¡Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>
                 <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
@@ -42,24 +36,24 @@
 </header>
 
 <main class="mx-auto max-w-[1200px]">
-    <div class="gap-y-1.5 flex flex-col justify-center mx-auto p-3 w-full">
+    <div class="flex flex-col justify-center mx-auto p-3 w-full">
         <!--Filtros para camaras-->
-        <div class="gap-y-4 flex flex-col md:flex-col">
-            <div class="gap-y-4 flex justify-between md:flex-col">
+        <div class="flex flex-col md:flex-row">
+            <div class="flex-col md:flex-row">
                 <label>Buscar por proveedor:</label>
-                <input class="p-2 bg-gradient-to-r from-violet-700 to-purple-600 rounded-[10px] border border-white" type="text" id="search-input-proveedor" placeholder="Terrabussi, Marolio">
+                <input class="p-2" type="text" id="search-input-proveedor" placeholder="Terrabussi, Marolio">
             </div>
 
-            <div class="gap-y-4 flex justify-between md:flex-col">
+            <div class="flex-col md:flex-row">
                 <label>Buscar por dirección de entrega:</label>
-                <input class="p-2 bg-gradient-to-r from-violet-700 to-purple-600 rounded-[10px] border border-white" type="text" id="search-input-direccion" placeholder="Buenos aires, Tigre">
+                <input class="p-2" type="text" id="search-input-direccion" placeholder="Buenos aires, Tigre">
             </div>
         </div>
 
         <!--Todas las camaras abiertas a nuevos usuarios-->
 
         <!--Contador de camaras activas-->
-        <p class="text-center my-10">Camaras activas: <span class="font-bold text-green-500" th:text="${camarasCreadas.size()}"></span></p>
+        <p>Camaras activas <span th:text="${camarasCreadas.size()}"></span></p>
 
         <!--Si hay camaras, las muestra.-->
         <div th:if="${camarasCreadas.size() > 0}" class="flex flex-col md:flex-row md:flex-wrap mt-5">
@@ -85,11 +79,11 @@
 
         <!--Si no hay camaras, muestra el texto-->
         <div th:if="${camarasCreadas.size() == 0}">
-            <p class="text-xl">No se encuentran camaras activas</p>
+            <p>No hay camaras papito lindpo</p>
         </div>
     </div>
 </main>
-<footer class="bg-gradient-to-t from-[#1A1625] h-[80px] px-5 flex justify-center items-center">
+<footer class="bg-black h-[80px] px-5 flex justify-center items-center">
     <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
         <li><a href="#">Contacto</a></li>
         <li><a href="#">Preguntas frecuentes</a></li>
