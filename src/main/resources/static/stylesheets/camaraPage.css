@@ -18,7 +18,7 @@
 .cont-encabezado{
     display: flex;
     height: 100px;
-    background-color: blueviolet;
+    background: linear-gradient(to left, #ffffff, #b268f5);
     border-radius: 16px;
     margin-bottom: 5px;
 }

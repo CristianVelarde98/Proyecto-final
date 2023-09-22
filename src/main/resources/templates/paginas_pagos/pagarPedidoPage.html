@@ -20,7 +20,8 @@
   <p>Costo de envío: <span th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
   <h2>Usted Paga: <span th:text="${pedido.precioTotal+(camara.precioEnvio/camara.participantes.size())}"></span></h2>
   <h2>Complete los datos de su tarjeta de credito o debito</h2>
-  <form th:action="@{/pagar/pedido/{idPedido}(idPedido = ${pedido.id})}" method="POST">
+
+  <form th:action="@{/crear-preferencia/{idPedido}(idPedido = ${pedido.id})}" method="POST" th:attr="idPedido=${pedido.id}">
       <input type="submit" value="PAGAR PEDIDO">
   </form>
 </body>
