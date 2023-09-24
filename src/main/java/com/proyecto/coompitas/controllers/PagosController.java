@@ -86,9 +86,9 @@ public class PagosController {
         // System.out.println(((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) - (((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) * relacionesPedido.get(0).getDescuentoVigente()) / 100)) / relacionesPedido.get(0).getCantidad());
 
 
-        viewModel.addAttribute("camara", camara);
-        viewModel.addAttribute("pedido", pedido);
-        viewModel.addAttribute("carrito", relacionesPedido);
+            viewModel.addAttribute("camara", camara);
+            viewModel.addAttribute("pedido", pedido);
+            viewModel.addAttribute("carrito", relacionesPedido);
 
         return "paginas_pagos/pagarPedidoPage";
     }
