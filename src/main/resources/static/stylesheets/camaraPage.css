@@ -3,22 +3,70 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto Light", sans-serif;
+    list-style: none;
 }
 .header{
-    background-color: black;
+    background-color: #0A192F;
     height: 80px;
+    display: flex;
+    align-items: center;
+}
+.cont-header{
+    height: 50px;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: relative;
+}
+.dropdown-c{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 150px;
+    height: 200px;
+    background-color: #0A192F;
+    padding: 8px;
+    display: none;
+    z-index: 110;
+}
+.dropdown-interior{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.saludin{
+    border-bottom: 1px solid gray;
+}
+.logo-coompitas{
+    height: 50px;
+}
+.url-usuario{
+    width: 50px;
+    height: 100%;
+    border-radius: 50%;
 }
 .cont-view{
     padding: 5px;
     max-width: 1200px;
     min-height: calc(100vh - 80px);
     margin: auto;
+    position: relative;
 }
 /*encabezado*/
 .cont-encabezado{
     display: flex;
     height: 100px;
-    background-color: blueviolet;
+    background-color: #172B46;
     border-radius: 16px;
     margin-bottom: 5px;
 }
@@ -34,9 +82,14 @@
 }
 .titulo{
     font-size: 18px;
+    color: #CEDCF9;
 }
 .subtitulo{
     font-size: 15px;
+    color: #CEDCF9;
+}
+.titprin span{
+    color: white;
 }
 .img{
     height: 100%;
@@ -71,7 +124,7 @@
     background-color: #ff4d4d;
 }
 .cont-estados{
-    background-color: #0eadc0;
+    background-color: #172B46;
     border-radius: 8px;
     margin-bottom: 5px;
     text-align: center;
@@ -79,28 +132,30 @@
 }
 
 .cont-info{
-    background-color: #0eadc0;
+    background-color: #172B46;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 5px;
 }
 .cont-info p{
     font-weight: bold;
+    color: #CEDCF9;
 }
 .cont-info span{
-    color: white;
+    color: #CEDCF9;
     font-weight: normal;
 }
 .precio-envio{
     margin-top: 20px;
-    background-color: #00d5ad;
 }
+
 .cont-objectivos{
-    background-color: #0eadc0;
+    background-color: #172B46;
     border-radius: 8px;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 5px;
 }
+
 .tit-obj{
     font-weight: bold;
     color: white;
@@ -127,7 +182,7 @@
     width: 50px;
     height: 100%;
     border-radius: 8px;
-
+    margin-right: 5px;
 }
 .barra {
     height: 100%;
@@ -137,9 +192,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 5px;
-    border-radius: 8px;
 }
+
 
 .no-alcanzado {
     background-color: gray;
@@ -150,13 +204,13 @@
 }
 
 .alcanzado {
-    background-color: yellow;
-    color: green;
+    background-color: #CEDCF9;
+    color: #478d62;
     font-weight: bold;
 }
 
 .alcanzado .descuento {
-    color: red;
+    color: black;
 }
 
 .barra p {
@@ -170,8 +224,8 @@
 /*contenedor pedidos*/
 
 .cont-pedidos{
-    background-color: #0eadc0;
-    padding: 5px;
+    background-color: #0A192F;
+    padding: 5px 20px;
     border-radius: 8px;
 }
 .tit-pedidos{
@@ -182,14 +236,15 @@
     font-weight: bold;
 }
 .pedido{
-    background-color: gainsboro;
+    background-color: #172B46;
     border-radius: 8px;
     margin-bottom: 5px;
     padding: 5px;
+    border: 2px solid #CEDCF9;
 }
+
 .encabezado-pedido{
     display: flex;
-    justify-content: space-between;
     align-items: center;
 
     margin-bottom: 5px;
@@ -197,15 +252,17 @@
 .ped-compr-nomb{
     text-transform: capitalize;
     font-weight: bold;
+    margin-left: 5px;
+    color: #CEDCF9;
 }
 .carrito-cont{
-    background-color: #00d5ad;
+    background-color: #58E3CD;
     padding: 5px;
     border-radius: 8px;
     margin-bottom: 5px;
 }
 .tit-carrito{
-    color: white;
+    color: #0A192F;
     font-weight: bold;
     margin-bottom: 5px;
     border-bottom: 1px solid #0eadc0;
@@ -223,8 +280,14 @@
     align-items: center;
 
 }
+.total-text-carrito{
+    color: white;
+}
+.total-text-carrito span{
+    color: #CEDCF9;
+}
 .descuento-aplicado-cont{
-    background-color: greenyellow;
+    background-color: #08ce00;
     height: 90%;
     display: flex;
     justify-content: center;
@@ -245,16 +308,17 @@
 .text-descuento{
     z-index: 50;
     font-weight: bold;
-    color: red;
+    color: #ffffff;
 }
 .prod-cost{
     border-bottom: 1px solid gray;
     font-weight: bold;
     margin-bottom: 5px;
+    color: #CEDCF9;
 }
 .prod-cost span{
     font-weight: normal;
-    color: green;
+    color: white;
 }
 .ahorro-envio-cont{
     display: flex;
@@ -263,7 +327,7 @@
     margin-bottom: 5px;
 }
 .ahorro-div{
-    border: 1px solid black;
+    border: 1px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -272,10 +336,13 @@
     padding: 5px;
     flex: 1;
 }
+.text-cost-env{
+    color: white;
+}
 .ahorro-msg{
     margin-left: 5px;
     position: relative;
-    background-color: greenyellow;
+    background-color: #08ce00;
     font-weight: bold;
 }
 .ahorro-msg-false{
@@ -289,3 +356,80 @@
     top: -5px;
     z-index: 20;
 }
+
+.cancelada{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(26,26,26,0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.btn-pedido{
+    padding: 5px 20px;
+    margin-top: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-nolisto{
+    background-color: #cc0000;
+    color: white;
+}
+.btn-comenzarpagos{
+    margin-top: 0;
+    margin-bottom: 5px;
+    background-color: #0eadc0;
+}
+.ancor-unirse{
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.btn-ancor-unirse{
+    background-color: green;
+    width: 160px;
+    text-align: center;
+    padding: 5px 20px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-ancor-unirse:hover{
+    background-color: #08ce00;
+}
+.msg-estados-pedido{
+    margin-left: 5px;
+    font-weight: bold;
+}
+.listo-msg{
+    color: greenyellow;
+}
+.nolisto-msg{
+    color: red;
+}
+.ped-propietario{
+    border-color: yellowgreen;
+    box-shadow: 0px 0px 10px yellowgreen;
+}
+.pagar-div{
+    background-color: #0eadc0;
+    width: 160px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.pagar-div:hover{
+    background-color: #309fab;
+    cursor: pointer;
+}
+.pagar-div a{
+    text-decoration: none;
+    color: white;
+
+}
+
