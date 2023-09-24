@@ -82,13 +82,14 @@ public class PagosController {
         Camara camara = camaraService.findCamara(idCamara);
         Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
         List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(idPedido);
+        User usuarioLogueado = userService.findUserById(idLogueado);
 
         // System.out.println(((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) - (((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) * relacionesPedido.get(0).getDescuentoVigente()) / 100)) / relacionesPedido.get(0).getCantidad());
 
-
-            viewModel.addAttribute("camara", camara);
-            viewModel.addAttribute("pedido", pedido);
-            viewModel.addAttribute("carrito", relacionesPedido);
+        viewModel.addAttribute("userLogueado", usuarioLogueado);
+        viewModel.addAttribute("camara", camara);
+        viewModel.addAttribute("pedido", pedido);
+        viewModel.addAttribute("carrito", relacionesPedido);
 
         return "paginas_pagos/pagarPedidoPage";
     }
@@ -115,7 +116,6 @@ public class PagosController {
             return "redirect:/login";
         }
     }
-
 
     //POST PARA MARCAR QUE SE RECIBIÓ LA CÁMARA CORRECTAMENTE EN LA DIRECCIÓN ESTIPULADA
     //@PostMapping("/camara/{idCamara}/recibida") continuará...
