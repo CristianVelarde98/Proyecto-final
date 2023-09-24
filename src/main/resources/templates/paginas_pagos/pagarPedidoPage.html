@@ -10,14 +10,19 @@
 <body>
   <h1>Pagar Pedido</h1>
   <p>Usted pidió estos productos:</p>
+
   <p th:each="relacion : ${carrito}">
+
     <span th:text="${relacion.producto.nombre}"></span> x <span th:text="${relacion.cantidad}"></span> = $<span th:text="${relacion.precioProductos}"></span>
-    <span th:if="${relacion.descuentoVigente > 0}"
-      style="color: red"
-      th:text="'% ' + ${relacion.descuentoVigente} + ' OFF'"></span>
+
+    <span th:if="${relacion.descuentoVigente > 0}" style="color: red" th:text="'% ' + ${relacion.descuentoVigente} + ' OFF'"></span>
   </p>
+
+
   <p>El costo de sus productos es: $<span th:text="${pedido.precioTotal}"></span></p>
+
   <p>Costo de envío: <span th:text="${camara.precioEnvio/camara.participantes.size()}"></span></p>
+
   <h2>Usted Paga: <span th:text="${pedido.precioTotal+(camara.precioEnvio/camara.participantes.size())}"></span></h2>
   <h2>Complete los datos de su tarjeta de credito o debito</h2>
 

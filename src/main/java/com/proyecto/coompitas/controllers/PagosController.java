@@ -79,44 +79,18 @@ public class PagosController {
             return "redirect:/login";
         }
 
+        Camara camara = camaraService.findCamara(idCamara);
+        Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
+        List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(idPedido);
 
-            Camara camara = camaraService.findCamara(idCamara);
-            Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
-            List<PedidoProducto> relacionesPedido = pedidoProductoService.buscarPorPedido(idPedido);
-            //User usuarioLogueado = userService.findUserById(idLogueado);
-
-            viewModel.addAttribute("camara", camara);
-            viewModel.addAttribute("pedido", pedido);
-            viewModel.addAttribute("carrito", relacionesPedido);
-
-            return "paginas_pagos/pagarPedidoPage";
+        // System.out.println(((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) - (((relacionesPedido.get(0).getProducto().getPrecio() * relacionesPedido.get(0).getCantidad()) * relacionesPedido.get(0).getDescuentoVigente()) / 100)) / relacionesPedido.get(0).getCantidad());
 
 
-    }
+        viewModel.addAttribute("camara", camara);
+        viewModel.addAttribute("pedido", pedido);
+        viewModel.addAttribute("carrito", relacionesPedido);
 
-    //POST PARA PAGAR EL PEDIDO
-    @PostMapping("/pagar/pedido/{idPedido}")
-    public String pagarPedido
-    (
-            @PathVariable("idPedido") Long idPedido,
-            HttpSession session
-    )
-    {
-        Long idLogueado = (Long) session.getAttribute("idLogueado");
-        if (idLogueado != null) {
-            Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
-            if(pedido.getEstadoDelPedido()== 2){
-                pedido.setEstadoDelPedido(1);
-            }else{
-                pedido.setEstadoDelPedido(2);
-            }
-
-            pedidoService.crearPedido(pedido);
-            return "redirect:/camara/"+pedido.getCamara().getId();
-        }else{
-            System.out.println("No hay usuario logueado");
-            return "redirect:/login";
-        }
+        return "paginas_pagos/pagarPedidoPage";
     }
 
     //POST PARA ENVIAR LA CÁMARA DE PEDIDOS (ULTIMO ESTADO)
@@ -142,35 +116,10 @@ public class PagosController {
         }
     }
 
+
     //POST PARA MARCAR QUE SE RECIBIÓ LA CÁMARA CORRECTAMENTE EN LA DIRECCIÓN ESTIPULADA
     //@PostMapping("/camara/{idCamara}/recibida") continuará...
 
     //POST PARA MARCAR QUE CADA PARTICIPANTE RETIRÓ EL PEDIDO DE LA UBICACIÓN DESIGNADA
 
-    @PostMapping("/crear-preferencia/{idPedido}")
-    public String crearPreferenciaDePago(
-            @PathVariable("idPedido") Long idPedido,
-            HttpSession session
-    ) {
-        Long idLogueado = (Long) session.getAttribute("idLogueado");
-        if (idLogueado == null){
-            System.out.println("No hay usuario logueado");
-            return "redirect:/login";
-        }
-
-            // Obtén el pedido u otros datos necesarios
-            Pedido pedido = pedidoService.buscarPedidoPorId(idPedido);
-
-            // Llama al servicio de Mercado Pago para crear la preferencia de pago
-            String linkDePago = mercadoPagoService.crearPreferenciaDePago(pedido);
-
-            if (linkDePago != null) {
-                // Redirige al usuario al link de pago de Mercado Pago
-                return "redirect:" + linkDePago;
-            } else {
-                // Manejo de errores
-                return "errorPage";
-            }
-
-    }
 }

@@ -86,13 +86,13 @@
 
         <!--contenedor de la info de la camara-->
         <div class="cont-info">
-            <p>Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
+            <p>Fecha de Cierre: </p>
+            <span th:text="${camara.fechaDeExpiracion}"></span>
             <p>Dirección de envío: <span
                     th:text="${camara.direccionEnvio.calle} +', '+${camara.direccionEnvio.ciudad}+', '+${camara.direccionEnvio.provincia}+', '+${camara.direccionEnvio.pais} "></span>
             </p>
             <p>Participantes: <span th:text="${camara.participantes.size()}"></span></p>
             <p class="precio-envio">Precio de envío: <span th:text="'$ '+${camara.precioEnvio}"></span></p>
-            <!--<p>Pedidos listos: <span th:text="${pedidosListos}"></span></p>-->
         </div>
 
 
