@@ -196,8 +196,7 @@
 
 
 .no-alcanzado {
-    background-color: #b0adad;
-    color: black;
+    background-color: gray;
 }
 
 .no-alcanzado p {
