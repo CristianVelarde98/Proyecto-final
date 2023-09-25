@@ -3,14 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Proveedores</title>
+    <link rel="stylesheet" href="/stylesheets/renderProveedoresPage.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<h1>Crear Cámara</h1>
-<h3>Proveedores:</h3>
-<div style="background-color: rgba(0,0,139,0.45); display: flex" th:each="userProveedor : ${usersProveedor}">
-    <img style="width: 60px; border-radius: 50%;" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
-    <p th:text="${userProveedor.nombreEmpresa}"></p>
-    <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir una camara</a>
+<header class="w-full h-[80px] bg-black">
+    <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
+        <div class="flex justify-center items-center">
+            <a href="/home">
+                <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
+            </a>
+        </div>
+        <div class="inline-block relative mt-[5px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+                 th:src="${userLogueado.urlFotoPerfil}">
+            <div id="drop-items"
+                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
+                <hr>
+                <a href="/perfil">Ir al perfil</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/camara/proveedores">Crear Cámara</a>
+                <a th:if="${userLogueado.rolUsuario == 1}" href="/catalogo/all/productos">Elegir por producto</a>
+                <a href="/logout" class="font-bold text-red-500">Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="main-container">
+    <div class="titulo-container">
+        <div>
+            <h1>¿Quienes proveerán tus cámaras? ⬇️</h1>
+        </div>
+        <div class="buscador">
+            <label>
+                Buscar Proveedor:
+                <input type="text" placeholder="Ingrese Proveedor...">
+            </label>
+        </div>
+
+    </div>
+
+    <div class="cont-proveedores">
+        <div class="proveedor" th:each="userProveedor : ${usersProveedor}">
+            <img class="img-proveedor" th:src="${userProveedor.urlFotoPerfil}" alt="" src="">
+            <p class="tit-proveedor" th:text="${userProveedor.nombreEmpresa}"></p>
+
+            <div class="cont-camara">
+                <a th:href="@{/camara/proveedores/catalogo/{idProveedor}(idProveedor=${userProveedor.id})}">Abrir cámara</a>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 </body>
+<script>
+    <!--Esta el dropdown-->
+    let bodyVariable = document.getElementById('body-id');
+    let dropdown = document.getElementById('dropdown');
+    let dropItems = document.getElementById('drop-items');
+    let isOpen = false;
+
+    dropdown.addEventListener('click', () => {
+        if (isOpen === false) {
+            dropItems.style.display = "flex";
+            isOpen = true;
+        } else {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+
+    bodyVariable.addEventListener('click', (e) => {
+        const isClickInsideDropdown = dropdown.contains(e.target);
+
+        if (!isClickInsideDropdown && isOpen) {
+            dropItems.style.display = "none";
+            isOpen = false;
+        }
+    });
+</script>
 </html>
