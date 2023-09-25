@@ -11,18 +11,18 @@
 </head>
 
 <body id="body-id">
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
                 <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
-        <div class="inline-block relative mt-[5px]">
-            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+        <div class="inline-block relative mt-[10px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3 transform transition duration-500 hover:scale-105" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class="z-10 w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                 class="z-10 justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
                 <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>
@@ -83,23 +83,23 @@
 
         <div class="cont-estados">
 
-            <p style="color: white; font-weight:bold; background-color: red;" th:if="${camara.estadoDeLaCamara == 1}">
+            <p style="color: white; font-weight:bold; background-color: #ce4a4a;" th:if="${camara.estadoDeLaCamara == 1}">
                 PENDIENTE DE
                 ACEPTACIÓN</p>
-            <p style="color: white; font-weight:bold; background-color: green;" th:if="${camara.estadoDeLaCamara == 2}">
+            <p style="color: white; font-weight:bold; background-color: #478d62;" th:if="${camara.estadoDeLaCamara == 2}">
                 RECIBIENDO
                 PARTICIPANTES</p>
-            <p style="color: white; font-weight:bold; background-color: #0eadc0;"
+            <p style="color: white; font-weight:bold; background-color: #77d7e3;"
                th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO
                 REFORMULACIÓN DE COSTO DE ENVÍO</p>
-            <p style="color: white;font-weight:bold; background-color: #5e0ec0" th:if="${camara.estadoDeLaCamara == 4}">
+            <p style="color: white;font-weight:bold; background-color: #8048d0" th:if="${camara.estadoDeLaCamara == 4}">
                 ESPERANDO QUE SE
                 EFECTÚEN TODOS LOS PAGOS</p>
 
-            <p style="color: white;font-weight:bold; background-color: #fd33a1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL
+            <p style="color: white;font-weight:bold; background-color: #e372b1" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL
                 PROVEEDOR ENVÍE LA CÁMARA DE
                 PEDIDOS</p>
-            <p style="color: #ffffff;background-color: green" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS
+            <p style="color: #ffffff;background-color: #478d62" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS
                 EN
                 CAMINO!</p>
         </div>
@@ -114,7 +114,7 @@
         <div class="cont-info">
             <form th:if="${(camara.creador == userLogueado) && (camara.estadoDeLaCamara != -1 && camara.estadoDeLaCamara != -2) && (camara.estadoDeLaCamara<4)}"
                   th:action="@{/camara/creador/anular/{idCamara}(idCamara = ${camara.id})}" method="POST">
-                <input class="btn-cancelar-camara" type="submit" value="CANCELAR CÁMARA">
+                <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300" type="submit" value="CANCELAR CÁMARA">
             </form>
             <p>Fecha de Cierre: <span th:text="${camara.fechaDeExpiracion}"></span></p>
             <p>Dirección de envío: <span
@@ -152,7 +152,7 @@
               th:action="@{/camara/{idCamara}/estadoDePago(idCamara=${camara.id})}" method="POST">
             <input class="btn-pedido btn-comenzarpagos" th:if="${camara.estadoDeLaCamara == 2}" type="submit"
                    value="Comenzar Pagos">
-            <input class="btn-pedido btn-comenzarpagos" th:if="${camara.estadoDeLaCamara == 3}" type="submit"
+            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-[#0A192F] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300" th:if="${camara.estadoDeLaCamara == 3}" type="submit"
                    value="Volver a reclutar compradores">
         </form>
 
@@ -226,9 +226,9 @@
 
                 <form th:if="${(userLogueado.id == pedido.comprador.id) && camara.estadoDeLaCamara == 2}"
                       th:action="@{'/pedidos/' + ${pedido.id} + '/estado/' + ${camara.id}}" method="POST">
-                    <input class="btn-pedido btn-listo" th:if="${pedido.estadoDelPedido == 0}" type="submit"
+                    <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" th:if="${pedido.estadoDelPedido == 0}" type="submit"
                            value="Estoy Listo">
-                    <input class="btn-pedido btn-nolisto" th:if="${pedido.estadoDelPedido == 1}" type="submit"
+                    <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" th:if="${pedido.estadoDelPedido == 1}" type="submit"
                            value="No Estoy Listo">
                 </form>
                 <div class="pagar-div" th:if="${camara.estadoDeLaCamara == 4 && (pedido.comprador == userLogueado) && pedido.estadoDelPedido == 1}">
@@ -241,6 +241,13 @@
     </div>
 
 </div>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
 <script>
     <!--Esta el dropdown-->
