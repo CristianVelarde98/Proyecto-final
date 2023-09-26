@@ -26,6 +26,7 @@ public class MercadoPagoService {
         this.pedidoProductoRepository = pedidoProductoRepository;
     }
 
+
     public String crearPreferenciaDePago(Pedido pedido, Long id) {
         try {
 
@@ -72,14 +73,15 @@ public class MercadoPagoService {
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(items)
                     .backUrls(PreferenceBackUrlsRequest.builder()
-                            .success("http://localhost:8080/pedido/pagado/" + id)
-                            .failure("http://localhost:8080/pedido/rechazado/" + id)
+                            .success("http://18.228.203.246/pedido/pagado/" + id)
+                            .failure("http://18.228.203.246/pedido/pagado/" + id)
                             .build())
                     .build();
 
             PreferenceClient client = new PreferenceClient();
             Preference preference = client.create(preferenceRequest);
 
+            System.out.println(preference.getSandboxInitPoint());
             return preference.getInitPoint();
         } catch (MPException exception) {
             // Manejo de excepciones de Mercado Pago, por ejemplo, MPException
