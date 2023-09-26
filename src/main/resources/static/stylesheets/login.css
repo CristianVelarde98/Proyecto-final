@@ -67,7 +67,7 @@ html {
 
 .label {
     color: #CEDCF9;
-    font-size: 1.2em;
+    font-size: 0.8em;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -75,14 +75,15 @@ html {
 
 .input {
     background: white;
+    color: #b1b1b1;
     border-radius: 10px;
     border: none;
-    padding: 0.5em;
+    padding: 0.3em 0.5em;
     margin: 0.5em 0;
 }
 
 .input::placeholder {
-    color: #ccc;
+    color: #b1b1b1;
 }
 
 .register-link {

@@ -10,16 +10,24 @@
     <link rel="stylesheet" href="../stylesheets/login.css">
     <link rel="stylesheet" href="/stylesheets/login.css">
     <link rel="stylesheet" href="../stylesheets/login.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="body">
-<header class="header">
-    <a href=""><img class="logo" src="/logo_coompitas.png" alt="logo-coompitas"></a>
-    <div class="efecto-top"></div>
+<header class="w-full h-[80px]">
+    <nav class="flex justify-between items-center max-w-[1200px] p-5 lg:p-3 mx-auto">
+        <a href="/">
+            <img
+                    class="w-[200px] xl:w-[150px]"
+                    src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg"
+                    alt="coompitas_logo"
+            />
+        </a>
+        <a class="text-white text-4xl lg:text-2xl xl:text-xl transform transition duration-300 hover:scale-105 hover:font-semibold" href="/login">Iniciar sesion</a>
+    </nav>
 </header>
 <main class="main">
     <div class="login-container">
         <h1 class="title">Login</h1>
-        <p th:text="${error}" class="error"></p>
         <form class="form" th:action="@{/user/login}" method="POST" th:object="${userLogin}">
             <label class="label">
                 Email
@@ -31,6 +39,7 @@
                 <input class="input" type="password" th:field="*{password}" placeholder="Password">
                 <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
             </label>
+            <p th:text="${error}" class="text-red-500 font-bold"></p>
             <a href="/registration" class="register-link">¿No tienes cuenta? Regístrate</a>
             <input class="login-btn" type="submit" value="Login">
         </form>

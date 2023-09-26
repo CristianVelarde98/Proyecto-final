@@ -9,18 +9,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col justify-between w-full" id="body-id">
-<header class="w-full h-[80px] bg-black">
+<header class="w-full h-[80px] bg-[#0A192F]">
     <nav class="flex justify-between items-center max-w-[1200px] mx-auto">
         <div class="flex justify-center items-center">
             <a href="/home">
                 <img class="w-[100px] h-[80px]" src="https://res.cloudinary.com/dqudradf7/image/upload/v1695173785/Dise%C3%B1o_sin_t%C3%ADtulo_dw2lkk.svg" alt="Logo Coompitas">
             </a>
         </div>
-        <div class="inline-block relative mt-[5px]">
-            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3" alt="Foto de perfil del usuario"
+        <div class="inline-block relative mt-[10px]">
+            <img id="dropdown" class="rounded-full w-[50px] h-[50px] mb-3 transform transition duration-500 hover:scale-105" alt="Foto de perfil del usuario"
                  th:src="${userLogueado.urlFotoPerfil}">
             <div id="drop-items"
-                 class=" w-[130px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white border border-black rounded-md">
+                 class="w-[200px] justify-center hidden flex-col gap-3 p-3 absolute right-0 overflow-auto bg-white shadow-lg rounded-md">
                 <h2>Hola, <span th:text="${userLogueado.nombreEmpresa}"></span>!</h2>
                 <hr>
                 <a href="/perfil">Ir al perfil</a>
@@ -77,52 +77,52 @@
             </div>
         </div>
     </section>
-
-    <div class="flex justify-center items-center max-w-[350px]" th:if="${userLogueado.direcciones.size() == 0}">
-        <h1 class="text-3xl">Para operar en la app debes registrar por lo menos una dirección! Adelante:</h1>
-        <form class="flex flex-col justify-center items-center" th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
+    <hr class="my-3">
+    <div class="flex flex-col justify-center items-center mx-auto mt-5" th:if="${userLogueado.direcciones.size() == 0}">
+        <h1 class="text-xl font-semibold">Registra una dirección para tus envios</h1>
+        <form class="flex flex-col justify-center items-center shadow-xl gap-3 p-5 mt-5 rounded-xl" th:action="@{/direccion/create}" method="POST" th:object="${direccion}">
             <label class="flex flex-col">
                 Pais:
-                <input type="text" th:field="*{pais}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{pais}" placeholder="País">
                 <label style="color: red" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></label>
             </label>
 
             <label class="flex flex-col">
                 Provincia:
-                <input type="text" th:field="*{provincia}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{provincia}" placeholder="Provincia">
                 <label style="color: red" th:if="${#fields.hasErrors('provincia')}" th:errors="*{provincia}"></label>
             </label>
 
             <label class="flex flex-col">
                 Ciudad:
-                <input type="text" th:field="*{ciudad}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{ciudad}" placeholder="Ciudad">
                 <span style="color: red" th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
             </label>
 
             <label class="flex flex-col">
                 Codigo Postal:
-                <input type="text" th:field="*{codigoPostal}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{codigoPostal}" placeholder="Código postal">
                 <label style="color: red" th:if="${#fields.hasErrors('codigoPostal')}" th:errors="*{codigoPostal}"></label>
             </label>
 
             <label class="flex flex-col">
                 Calle:
-                <input type="text" th:field="*{calle}">
+                <input class="cursor-pointer mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" type="text" th:field="*{calle}" placeholder="Calle">
                 <label style="color: red" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></label>
             </label>
 
-            <input type="submit" value="Guardar Dirección">
+            <input class="cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Guardar">
         </form>
     </div>
 
     <!--CAMARAS DEL PROVEEDOR-->
     <section class="w-full flex flex-col justify-center items-center">
         <div class="p-2 flex flex-col w-full" th:unless="${userLogueado.direcciones.size() == 0}">
-            <div class="w-full bg-[#172b46] p-2 rounded-md my-5" th:if="${userLogueado.rolUsuario == 2}">
+            <div class="w-full bg-[#172b46] p-2 rounded-lg my-5" th:if="${userLogueado.rolUsuario == 2}">
                 <h2 class="text-3xl text-white text-center font-bold">Camaras Proveidas</h2>
             </div>
             <div class="flex flex-col gap-5 w-full" th:if="${camarasProveidas}">
-                <div class="flex flex-col md:flex-row justify-between items-center p-5 border-black border" th:each="camara : ${camarasProveidas}">
+                <div class="flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl" th:each="camara : ${camarasProveidas}">
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="flex flex-col justify-center items-center">
                             <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.creador.urlFotoPerfil}" alt="" src="">
@@ -131,13 +131,13 @@
                             <div class="max-w-[200px] text-center">
                                 <p class="bg-red-500 text-white rounded-md p-1" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
                                 <p class="bg-red-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
-                                <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
-                                <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
-                                <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
-                                <p class="text-white bg-green-500" th:if="${camara.estadoDeLaCamara == 6}">
+                                <p class="bg-[#ce4a4a] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+                                <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+                                <p class="bg-[#77d7e3] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+                                <p class="bg-[#8048d0] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO QUE SE EFECTÚEN TODOS LOS PAGOS</p>
+                                <p class="bg-[#e372b1] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+                                <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+                                <p class="text-black" th:if="${camara.estadoDeLaCamara == 6}">
                                     Fecha aproximada de llegada:
                                     <span th:text="${camara.fechaDeLlegada}"></span>
                                 </p>
@@ -204,18 +204,18 @@
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                     </div>
                 </div>
-                <div class="w-full bg-red-500 p-2" th:if="${camarasProveidas.size() == 0}">
-                    <p class="text-white text-center">Aún no te han solicitado cámaras</p>
+                <div class="w-full p-2 rounded-lg" th:if="${camarasProveidas.size() == 0}">
+                    <strong class="text-red-500 text-center rounded-lg">Aún no te han solicitado cámaras</strong>
                 </div>
             </div>
 
             <!--CAMARAS DE COMPRADOR-->
             <div class="p-2 flex flex-col w-full">
-                <div class="w-full bg-[#172b46] p-2 rounded-md my-5" th:if="${userLogueado.rolUsuario == 1}">
+                <div class="w-full bg-[#172b46] p-2 rounded-lg my-5" th:if="${userLogueado.rolUsuario == 1}">
                     <h3 class="text-3xl text-white text-center font-bold">Las cámaras que gestionas</h3>
                 </div>
                 <div class="flex flex-col gap-5 w-full" th:if="${camarasCreadas}">
-                    <div th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente flex flex-col md:flex-row justify-between items-center p-5 border-black border' : ${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2 ? 'cancelada flex flex-col md:flex-row justify-between items-center p-5 border-black border' : 'aceptada flex flex-col md:flex-row justify-between items-center p-5 border-black border'}" th:each="camara : ${camarasCreadas}">
+                    <div th:class="${camara.estadoDeLaCamara == 1} ? 'pendiente flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl' : ${camara.estadoDeLaCamara == -1 || camara.estadoDeLaCamara == -2 ? 'cancelada flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl' : 'aceptada flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl'}" th:each="camara : ${camarasCreadas}">
                         <div class="flex flex-col md:flex-row items-center gap-3">
                             <div class="flex flex-col justify-center items-center">
                                 <img class="w-[70px] h-[70px] rounded-full" th:src="${camara.proveedor.urlFotoPerfil}" alt="" src="">
@@ -224,12 +224,12 @@
                                     <!--VALIDACIONES-->
                                     <p class="bg-red-500 text-white rounded-md p-1" th:if="${camara.estadoDeLaCamara == -1}">CÁMARA CANCELADA</p>
                                     <p class="bg-red-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == -2}">CÁMARA RECHAZADA POR PROVEEDOR</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
-                                    <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO COTIZACIÓN DE ENVÍO</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
-                                    <p class="bg-yellow-500 text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
-                                    <p class="bg-green-500 text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
+                                    <p class="bg-[#ce4a4a] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 1}">PENDIENTE DE ACEPTACIÓN</p>
+                                    <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 2}">RECIBIENDO PARTICIPANTES</p>
+                                    <p class="bg-[#77d7e3] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 3}">ESPERANDO REFORMULACIÓN DE COSTO DE ENVÍO</p>
+                                    <p class="bg-[#8048d0] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 4}">ESPERANDO EL PAGO DE LOS PARTICIPANTES</p>
+                                    <p class="bg-[#e372b1] text-black rounded-md" th:if="${camara.estadoDeLaCamara == 5}">ESPERANDO QUE EL PROVEEDOR ENVÍE LA CÁMARA DE PEDIDOS</p>
+                                    <p class="bg-[#478d62] text-white rounded-md" th:if="${camara.estadoDeLaCamara == 6}">CAMARA DE PEDIDOS EN CAMINO!</p>
                                     <img style="width: 100px" th:if="${camara.estadoDeLaCamara == 1 || camara.estadoDeLaCamara == 3 || camara.estadoDeLaCamara == 4 || camara.estadoDeLaCamara == 5}" src="https://i.gifer.com/origin/ea/ea3fa7a07d9cb563d67168a6e45ed4e1.gif" alt="">
 
                                     <p th:if="${camara.estadoDeLaCamara == 6}">
@@ -244,15 +244,15 @@
                             </div>
                         </div>
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
-                        <div class="w-full bg-red-500 p-2" th:if="${camarasCreadas.size() == 0}">
-                            <p class="text-white text-center">No eres el propietario de ninguna cámara</p>
-                        </div>
+                    </div>
+                    <div class="w-full p-2 rounded-lg" th:if="${camarasCreadas.size() == 0}">
+                        <strong class="text-red-500 text-center">No eres el propietario de ninguna cámara</strong>
                     </div>
 
-                    <div class="w-full bg-[#172b46] p-2 rounded-md my-5">
+                    <div class="w-full bg-[#172b46] p-2 rounded-lg my-5">
                         <h2 class="text-3xl text-white text-center font-bold">Cámaras en las que participas</h2>
                     </div>
-                    <div class="flex flex-col md:flex-row justify-between items-center p-5 border-black border" th:each="camara : ${camarasParticipadas}">
+                    <div class="flex flex-col md:flex-row justify-between items-center p-5 rounded-lg shadow-xl" th:each="camara : ${camarasParticipadas}">
                             <div class="flex flex-col md:flex-row items-center gap-3">
                                 <div class="flex">
                                     <img class="w-[50px] h-[50px] rounded-full"
@@ -282,23 +282,30 @@
                             </div>
                         <a class="text-center text-white py-2 px-3 bg-blue-500 rounded-md transform transition duration-300 hover:scale-105 hover:font-semibold" th:href="@{camara/{idCamara}(idCamara=${camara.id})}">Ver Detalles</a>
                     </div>
-                    <div class="w-full bg-red-500 p-2" th:if="${camarasParticipadas.size() == 0}">
-                        <p class="text-white text-center">No tienes ninguna participación vigente</p>
+                    <div class="w-full p-2 rounded-lg" th:if="${camarasParticipadas.size() == 0}">
+                        <strong class="text-red-500 text-center">No tienes ninguna participación vigente</strong>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </main>
+<footer class="bg-[#0A192F] h-[80px] px-5 flex justify-center items-center">
+    <ul class="flex justify-center items-center gap-5 text-white h-full max-w-[1200px] mx-auto">
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Terminos y condiciones</a></li>
+    </ul>
+</footer>
 </body>
 <script>
-    <!--Esta el dropdown-->
+    //Esta el dropdown
     let bodyVariable = document.getElementById('body-id');
     let dropdown = document.getElementById('dropdown');
     let dropItems = document.getElementById('drop-items');
     let isOpen = false;
 
-    <!--Para editar la foto-->
+    //Para editar la foto
     let editBtn = document.getElementById('edit-btn');
     let fotoInput = document.getElementById('foto-input');
     let cancelBtn = document.getElementById('close-form');
@@ -322,7 +329,7 @@
         }
     });
 
-    <!--Editar foto de perfil-->
+    //Editar foto de perfil
     editBtn.addEventListener('click', () => {
         fotoInput.style.display = "flex";
     });
