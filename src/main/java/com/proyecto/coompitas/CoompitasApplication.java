@@ -14,7 +14,7 @@ public class CoompitasApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception{
-        MercadoPagoConfig.setAccessToken("TEST-6874223181035381-091606-e986a9cfbf3c55c4c1a924de61bf8cb9-269860643");
+        MercadoPagoConfig.setAccessToken("TEST-2361479918763548-092502-f1cd3e46a05997c58ccdb95111242015-269860643");
     }
 
 }
